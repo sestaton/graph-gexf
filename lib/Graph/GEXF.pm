@@ -11,7 +11,7 @@ use Graph::GEXF::Node;
 
 with
   'Graph::GEXF::Role::XML',
-  'Graph::GEXF::Role::Attributes' => {for => [qw/node edge/]};
+  'Graph::GEXF::Role::Attributes' => {for => [qw/node edge/], with_method => 1};
 
 has graph_mode => (
     is       => 'ro',
@@ -42,18 +42,6 @@ has nodes => (
     },
 );
 
-sub add_node_attribute {
-    my ($self, $name, $type) = @_;
-
-    my $id = $self->attributes_node_total();
-    my $attr = {
-        id    => $id,
-        title => $name,
-        type  => $type,
-    };
-    $self->set_node_attribute($name => $attr);
-}
-
 sub add_node {
     my ($self, $id) = @_;
 
@@ -73,7 +61,7 @@ sub add_node {
             $_ => {
                 id   => $attribute->{id},
                 name => $attribute->{name},
-                type => $attribute->{type}
+                type => $attribute->{type},
             }
         );
     } $self->attributes_node_list;
@@ -135,7 +123,7 @@ could be B<directed>, B<undirected>, B<mutual> or B<notset>. Default is B<direct
 
 =over 4
 
-=item add_node_attribute($name, $type)
+=item add_node_attribute($name, $type, [$default_value])
 
 Add attributes to node
 

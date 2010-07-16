@@ -5,7 +5,7 @@ use Test::More;
 use Graph::GEXF;
 
 my $graph = Graph::GEXF->new();
-$graph->add_node_attribute('url', 'string');
+$graph->add_node_attribute('url', 'string', 'http://');
 $graph->add_node_attribute('indegree', 'float');
 $graph->add_node_attribute('frog', 'boolean');
 

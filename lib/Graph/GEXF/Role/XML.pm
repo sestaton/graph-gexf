@@ -4,10 +4,17 @@ use Moose::Role;
 
 use XML::Simple;
 
-has gexf_ns =>
-  (is => 'ro', isa => 'Str', default => 'http://www.gexf.net/1.1draft');
+has gexf_ns => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'http://www.gexf.net/1.1draft'
+);
 
-has gexf_version => (is => 'ro', isa => 'Num', default => '1.1');
+has gexf_version => (
+    is      => 'ro',
+    isa     => 'Num',
+    default => '1.1'
+);
 
 sub to_xml {
     my $self = shift;
@@ -24,15 +31,8 @@ sub to_xml {
         }
     };
 
-    foreach my $attr_id ($self->attributes_node_list) {
-        my $attribute = $self->get_node_attribute($attr_id);
-        $graph->{gexf}->{graph}->{attributes}->{class} = 'node';
-        push @{$graph->{gexf}->{graph}->{attributes}->{attribute}},
-          { id    => $attribute->{id},
-            type  => $attribute->{type},
-            title => $attribute->{title},
-          };
-    }
+    $self->add_attributes($graph, 'node');
+    $self->add_attributes($graph, 'edge');
 
     my $edges_id = 0;
 
@@ -62,6 +62,28 @@ sub to_xml {
 
     my $xml_out = XMLout($graph, AttrIndent => 1, keepRoot => 1);
     $xml_out;
+}
+
+sub add_attributes {
+    my ($self, $graph, $type) = @_;
+
+    my $list_attr = 'attributes_' . $type . '_list';
+    my $get_attr  = 'get_' . $type . '_attribute';
+
+    my $attributes;
+    $attributes->{class} = $type;
+
+    foreach my $attr_id ($self->$list_attr) {
+        my $attribute = $self->$get_attr($attr_id);
+        push @{$attributes->{attribute}},
+          { id      => $attribute->{id},
+            type    => $attribute->{type},
+            title   => $attribute->{title},
+            default => $attribute->{default},
+          };
+    }
+
+    push @{$graph->{gexf}->{graph}->{attributes}}, $attributes;
 }
 
 1;
