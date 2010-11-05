@@ -5,9 +5,9 @@ use Test::More;
 use Graph::GEXF;
 
 my $graph = Graph::GEXF->new();
-$graph->add_node_attribute('url', 'string', 'http://');
-$graph->add_node_attribute('indegree', 'float');
-$graph->add_node_attribute('frog', 'boolean');
+$graph->add_node_attribute('url', 'string',);
+$graph->add_node_attribute('indegree', 'float', '0.0');
+$graph->add_node_attribute('frog', 'boolean', 1);
 
 my $n1 = $graph->add_node(0);
 $n1->label('Gephi');
