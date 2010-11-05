@@ -3,7 +3,8 @@ package Graph::GEXF::Node;
 use Moose;
 
 use Graph::GEXF::Edge;
-with 'Graph::GEXF::Role::Attributes' => {for => [qw/node/]};
+with 'Graph::GEXF::Role::Position',
+  'Graph::GEXF::Role::Attributes' => { for => [qw/node/] };
 
 has id => (is => 'ro', isa => 'Str', required => 1);
 has label => (is => 'rw', isa => 'Str');
@@ -16,8 +17,8 @@ has edges => (
     handles => {
         add_edge    => 'set',
         has_link_to => 'exists',
-        all_edges => 'keys',
-        get_edge => 'get',
+        all_edges   => 'keys',
+        get_edge    => 'get',
     }
 );
 
