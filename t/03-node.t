@@ -16,4 +16,13 @@ ok $node->set_node_attribute(
 ok $node->attribute('url', 'http://linkfluence.net'),
   'add attribute url to node';
 
+is $node->x, '0.0';
+is $node->y, '0.0';
+
+ok $node->x(5);
+ok $node->y(12);
+
+is $node->x, 5;
+is $node->y, 12;
+
 done_testing;
