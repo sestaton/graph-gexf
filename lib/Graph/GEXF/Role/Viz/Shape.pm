@@ -14,7 +14,16 @@ parameter for => (
 role {
     my $p = shift;
 
-    my $type = lcfirst( $p->for ) . 'Shape';
+    my ( $type, $default );
+
+    $type = lcfirst( $p->for ) . 'Shape';
+
+    if ( $p->for eq 'node' ) {
+        $default = 'disc';
+    }
+    else {
+        $default = 'solid';
+    }
 
     has shape => (
         is  => 'rw',
