@@ -14,6 +14,12 @@ with
   'Graph::GEXF::Role::Attributes' =>
   { for => [qw/node edge/], with_method => 1 };
 
+has visualization => (
+    is        => 'ro',
+    isa       => 'Boolean',
+    predicate => 'has_visualization',
+);
+
 has graph_mode => (
     is       => 'ro',
     isa      => enum( [qw/static dynamic/] ),
@@ -123,6 +129,10 @@ sub add_node {
 =head2 ATTRIBUTES
 
 =over 4
+
+=item visualization
+
+If set to true, the generated graph will include visualizations informations.
 
 =item graph_mode
 
