@@ -16,7 +16,7 @@ with
 
 has visualization => (
     is        => 'ro',
-    isa       => 'Boolean',
+    isa       => 'Bool',
     predicate => 'has_visualization',
 );
 
