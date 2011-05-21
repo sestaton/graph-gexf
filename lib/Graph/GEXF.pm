@@ -11,41 +11,56 @@ use Graph::GEXF::Node;
 
 with
   'Graph::GEXF::Role::XML',
-  'Graph::GEXF::Role::Attributes' => {for => [qw/node edge/], with_method => 1};
+  'Graph::GEXF::Role::Attributes' =>
+  { for => [qw/node edge/], with_method => 1 };
 
 has graph_mode => (
     is       => 'ro',
-    isa      => enum([qw/static dynamic/]),
+    isa      => enum( [qw/static dynamic/] ),
     required => 1,
     default  => 'static',
 );
 
 has edge_type => (
     is       => 'ro',
-    isa      => enum([qw/directed undirected mutual notset/]),
+    isa      => enum( [qw/directed undirected mutual notset/] ),
     required => 1,
     default  => 'directed',
 );
 
 has nodes => (
-    traits  => ['Hash'],
-    is      => 'rw',
-    isa     => 'HashRef[Graph::GEXF::Node]',
-    default => sub { {} },
-    auto_deref=> 1,
-    handles => {
+    traits     => ['Hash'],
+    is         => 'rw',
+    isa        => 'HashRef[Graph::GEXF::Node]',
+    default    => sub { {} },
+    auto_deref => 1,
+    handles    => {
         _node_exists => 'exists',
         _add_node    => 'set',
         total_nodes  => 'count',
-        get_node => 'get',
-        all_nodes => 'keys',
+        get_node     => 'get',
+        all_nodes    => 'keys',
     },
 );
 
 sub add_node {
-    my ($self, $id) = @_;
+    my $self = shift;
+    my ($id, %attributes);
 
     # TODO should be possible to add a Graph::GEXF::Node too
+    
+    if ( @_ == 1 ) {
+        $id = shift;
+    }
+    else {
+        if ( ( @_ % 2 ) == 0 ) {
+            %attributes = @_;
+        }
+        else {
+            $id = shift;
+            %attributes = @_;
+        }
+    }
 
     if ($id && $self->_node_exists($id)) {
         die "Can't add node wih id $id: already exists";
