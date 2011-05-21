@@ -16,7 +16,7 @@ role {
 
     my ( $type, $default );
 
-    $type = lcfirst( $p->for ) . 'Shape';
+    $type = ucfirst( $p->for ) . 'Shape';
 
     if ( $p->for eq 'node' ) {
         $default = 'disc';
@@ -26,8 +26,9 @@ role {
     }
 
     has shape => (
-        is  => 'rw',
-        isa => $type,
+        is      => 'rw',
+        isa     => $type,
+        default => $default,
     );
 };
 
