@@ -7,7 +7,7 @@ use XML::Simple;
 has gexf_ns => (
     is      => 'ro',
     isa     => 'Str',
-    default => 'http://www.gexf.net/1.1draft'
+    default => 'http://www.gexf.net/1.2draft'
 );
 
 has gexf_version => (
@@ -49,13 +49,14 @@ sub to_xml {
         }
 
         push @{$graph->{gexf}->{graph}->{nodes}->{node}}, $node_desc;
-
+        
         foreach my $edge_id ($node->all_edges) {
             my $edge = $node->get_edge($edge_id);
             push @{$graph->{gexf}->{graph}->{edges}->{edge}},
-              { id     => $edges_id,
+              { id     => $edge->id,
                 source => $edge->source,
-                target => $edge->target
+                target => $edge->target,
+                weight => $edge->weight,
               };
         }
     }
@@ -85,5 +86,7 @@ sub add_attributes {
 
     push @{$graph->{gexf}->{graph}->{attributes}}, $attributes;
 }
+
+no Moose::Role;
 
 1;

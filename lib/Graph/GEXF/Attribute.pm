@@ -10,5 +10,7 @@ has type  => (
     isa => enum([qw/string integer float double boolean date anyURI/])
 );
 
+no Moose;
+
 1;
 
