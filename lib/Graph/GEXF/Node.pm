@@ -9,8 +9,18 @@ with
   'Graph::GEXF::Role::Viz::Size'  => { as  => 'size' },
   'Graph::GEXF::Role::Viz::Shape' => { for => 'node' };
 
-has id => (is => 'ro', isa => 'Str', required => 1);
-has label => (is => 'rw', isa => 'Str');
+has id => (
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
+    traits   => ['Chained']
+);
+
+has label => (
+    is     => 'rw',
+    isa    => 'Str',
+    traits => ['Chained']
+);
 
 has edges => (
     traits  => ['Hash'],
@@ -71,7 +81,7 @@ no Moose;
 
     my $graph = Graph::GEXF->new();
 
-    my $n = $graph->add_node;
+    my $n = $graph->add_node();
 
 =head1 DESCRIPTION
 
@@ -90,6 +100,32 @@ The B<id> of a node can't be changed once the node is created.
     $n->label();
 
 Each node has a label. If the B<label> is not defined, the default value is the B<id>. This value can be changed at any time.
+
+=head3 viz
+
+If B<visualization> is set to true, thoses values will be added to the XML.
+
+=over
+
+=item r,g,b,a
+
+    $n->r(255);
+
+=head3 x,y,z
+
+    $n->x(1);
+
+=head3 shape
+
+    $n->shape('disc');
+
+can be any of B<disc>, B<square>, B<triangle>, B<diamond>.
+
+=head3 size
+
+    $n->size(2);
+
+=back
 
 =head2 METHODS
 
@@ -117,4 +153,3 @@ This method will create an edge between some nodes.
 
 =head3 get_edge
 
-=head3    
