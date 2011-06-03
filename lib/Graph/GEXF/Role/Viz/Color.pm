@@ -13,12 +13,14 @@ has [qw/r g b/] => (
     isa     => 'RGBColor',
     default => 0,
     trigger => sub {$_has_colors++},
+    traits  => ['Chained'],
 );
 
 has a => (
     is      => 'rw',
     isa     => 'Alpha',
     default => 1,
+    traits  => ['Chained'],
 );
 
 sub has_colors { $_has_colors }

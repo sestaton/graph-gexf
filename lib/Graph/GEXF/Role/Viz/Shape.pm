@@ -29,6 +29,7 @@ role {
         is      => 'rw',
         isa     => $type,
         default => $default,
+        traits  => ['Chained'],
     );
 };
 

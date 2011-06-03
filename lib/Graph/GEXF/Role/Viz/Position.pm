@@ -8,6 +8,7 @@ has [qw/x y z/] => (
     is      => 'rw',
     isa     => 'Num',
     trigger => sub { $_has_position++ },
+    traits  => ['Chained'],
 );
 
 sub has_position { $_has_position }

@@ -14,6 +14,7 @@ role {
         is      => 'rw',
         isa     => 'Num',
         default => '1.0',
+        traits  => ['Chained'],
     );
 };
 
