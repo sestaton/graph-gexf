@@ -18,9 +18,10 @@ _test($n, 1, qw/r g b/);
 dies_ok {$n->r(256)} "can't set color to value > 255";
 dies_ok {$n->r(-1)} "can't set color to value < 0";
 
-my $xml = $graph->to_xml;
+my $n2 = $graph->add_node();
+$n->link_to($n2->id);
 
-warn $xml;
+my $xml = $graph->to_xml;
 
 sub _test{
     my ($n, $value, @attr) = @_;
