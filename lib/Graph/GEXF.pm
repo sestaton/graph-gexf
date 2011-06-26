@@ -14,11 +14,23 @@ with
   'Graph::GEXF::Role::Attributes' =>
   { for => [qw/node edge/], with_method => 1 };
 
+=attr visualization (B<Boolean>)
+
+if set to true, the generated graph will includes visualizations informations
+
+=cut
+
 has visualization => (
     is        => 'ro',
     isa       => 'Bool',
     predicate => 'has_visualization',
 );
+
+=attr graph_mode (B<static|dynamic>)
+
+Is your graph static or dynamic.
+
+=cut
 
 has graph_mode => (
     is       => 'ro',
@@ -27,12 +39,46 @@ has graph_mode => (
     default  => 'static',
 );
 
+=attr edge_type (B<directed|undirected|mutual|notset>)
+
+The type of the edges
+
+=cut
+
 has edge_type => (
     is       => 'ro',
     isa      => enum( [qw/directed undirected mutual notset/] ),
     required => 1,
     default  => 'directed',
 );
+
+=attr nodes
+
+a HashRef of L<Graph::GEXF::Node> objects.
+
+=cut
+
+=method total_nodes
+
+Return the list of nodes attached to the graph
+
+=cut
+
+=method get_node
+
+Return a node
+
+=cut
+
+=method add_node_attribute($name, $type, [$default_value])
+
+Add attributes to node
+
+=method all_nodes
+
+Return all the nodes
+
+=cut
 
 has nodes => (
     traits     => ['Hash'],
@@ -48,6 +94,12 @@ has nodes => (
         all_nodes    => 'keys',
     },
 );
+
+=method add_node
+
+Add a new node to the graph
+
+=cut
 
 sub add_node {
     my $self = shift;
@@ -123,37 +175,3 @@ sub add_node {
 
     # render the graph in XML
     my $xml = $graph->to_xml;
-
-=head1 DESCRIPTION
-
-=head2 ATTRIBUTES
-
-=over 4
-
-=item visualization
-
-If set to true, the generated graph will include visualizations informations.
-
-=item graph_mode
-
-could be B<static> or B<dynamic>. Default is B<static>
-
-=item edge_type
-
-could be B<directed>, B<undirected>, B<mutual> or B<notset>. Default is B<directed>.
-
-=back
-
-=head2 METHODS
-
-=over 4
-
-=item add_node_attribute($name, $type, [$default_value])
-
-Add attributes to node
-
-=item add_node([$id])
-
-Add a new node to the graph
-
-=back
