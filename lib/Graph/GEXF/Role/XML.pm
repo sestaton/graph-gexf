@@ -112,7 +112,7 @@ sub _create_node {
           { for => $attr->{id}, value => $attr->{value} };
     }
 
-    $self->_add_visualizations_elements($node, $node_desc);
+    #$self->_add_visualizations_elements($node, $node_desc) if $self->has_visualization;
 
     my @edges =
       map { $self->_create_edge( $node->get_edge($_) ) } $node->all_edges;
@@ -129,7 +129,7 @@ sub _create_edge {
         weight => $edge->weight,
     };
 
-    $self->_add_shape($edge, $edge_desc);
+    #$self->_add_shape($edge, $edge_desc) if $self->has_visualization;
     
     return $edge_desc;
 }
