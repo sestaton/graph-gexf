@@ -16,6 +16,18 @@ has gexf_version => (
     default => '1.2'
 );
 
+has xmlns_xsi => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'http://www.w3.org/2001/XMLSchema-instance'
+);
+
+has xsi_schemalocation => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'http://www.gexf.net/1.1draft http://www.gexf.net/1.1draft/gexf.xsd'
+);
+
 sub to_xml {
     my $self = shift;
 
@@ -27,7 +39,7 @@ sub to_xml {
 
     $self->_add_nodes($graph);
 
-    my $xml_out = XMLout($graph, AttrIndent => 1, keepRoot => 1);
+    my $xml_out = XMLout($graph, AttrIndent => 1, keepRoot => 1, XMLDecl => q{<?xml version="1.0" encoding="UTF-8"?>});
     $xml_out;
 }
 
