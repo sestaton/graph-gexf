@@ -2,6 +2,7 @@ package Graph::GEXF::Role::Viz::Shape;
 
 use Moose::Util::TypeConstraints;
 use MooseX::Role::Parameterized;
+use MooseX::Attribute::Chained;
 
 enum EdgeShape => qw(solid doted dashed double);
 enum NodeShape => qw(disc square triangle diamond);

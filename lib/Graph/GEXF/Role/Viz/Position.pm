@@ -1,6 +1,7 @@
 package Graph::GEXF::Role::Viz::Position;
 
 use Moose::Role;
+use MooseX::Attribute::Chained;
 
 my $_has_position = 0;
 

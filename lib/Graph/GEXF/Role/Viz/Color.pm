@@ -2,6 +2,7 @@ package Graph::GEXF::Role::Viz::Color;
 
 use Moose::Role;
 use Moose::Util::TypeConstraints;
+use MooseX::Attribute::Chained;
 
 subtype RGBColor => as 'Num' => where { $_ >= 0 && $_ <= 255 };
 subtype Alpha => as 'Num' => where { $_ > 0 and $_ <= 1 };
