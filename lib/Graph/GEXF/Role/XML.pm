@@ -72,6 +72,8 @@ sub _init_graph {
     return {
         gexf => {
             xmlns   => $self->gexf_ns,
+	    'xmlns:xsi' => $self->xmlns_xsi,
+            'xsi:schemaLocation' => $self->xsi_schemalocation,
             version => $self->gexf_version,
             meta    => {creator => ['Graph::GEXF']},
             graph   => {
