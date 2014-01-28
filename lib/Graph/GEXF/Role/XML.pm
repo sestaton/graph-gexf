@@ -1,7 +1,10 @@
 package Graph::GEXF::Role::XML;
 
-use Moose::Role;
+##TODO: bugfix for node attributes that are breaking the format
+##      (the offending lines are commented out below)
 
+use Moose::Role;
+##TODO: Use XML::LibXML instead since XML::Simple is discouraged
 use XML::Simple;
 
 has gexf_ns => (
