@@ -1,0 +1,20 @@
+Build.PL
+lib/Graph/GEXF.pm
+lib/Graph/GEXF/Attribute.pm
+lib/Graph/GEXF/Edge.pm
+lib/Graph/GEXF/Node.pm
+lib/Graph/GEXF/Role/Attributes.pm
+lib/Graph/GEXF/Role/Viz/Color.pm
+lib/Graph/GEXF/Role/Viz/Position.pm
+lib/Graph/GEXF/Role/Viz/Shape.pm
+lib/Graph/GEXF/Role/Viz/Size.pm
+lib/Graph/GEXF/Role/XML.pm
+MANIFEST			This list of files
+t/01-basic.t
+t/02-graph.t
+t/03-node.t
+t/04-edges.t
+t/05-basic_graph.t
+t/06-data.t
+t/07-attributes.t
+t/08-viz.t
