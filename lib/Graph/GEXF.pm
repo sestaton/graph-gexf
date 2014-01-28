@@ -3,18 +3,17 @@ package Graph::GEXF;
 # ABSTRACT: Manipulate graph file in GEXF
 
 use Moose;
-
 use Data::UUID::LibUUID;
 use Moose::Util::TypeConstraints;
-
 use Graph::GEXF::Node;
+use namespace::autoclean;
 
-with
-  'Graph::GEXF::Role::XML',
-  'Graph::GEXF::Role::Attributes' =>
-  { for => [qw/node edge/], with_method => 1 };
+with 'Graph::GEXF::Role::XML',
+     'Graph::GEXF::Role::Attributes' => { for => [qw/node edge/], with_method => 1 };
 
-=attr visualization (B<Boolean>)
+=head1 ATTRIBUTES
+
+=head2 visualization (B<Boolean>)
 
 if set to true, the generated graph will includes visualizations informations
 
@@ -26,7 +25,7 @@ has visualization => (
     predicate => 'has_visualization',
 );
 
-=attr graph_mode (B<static|dynamic>)
+=head2 graph_mode (B<static|dynamic>)
 
 Is your graph static or dynamic.
 
@@ -39,7 +38,7 @@ has graph_mode => (
     default  => 'static',
 );
 
-=attr edge_type (B<directed|undirected|mutual|notset>)
+=head2 edge_type (B<directed|undirected|mutual|notset>)
 
 The type of the edges
 
@@ -52,31 +51,9 @@ has edge_type => (
     default  => 'directed',
 );
 
-=attr nodes
+=head2 nodes
 
 a HashRef of L<Graph::GEXF::Node> objects.
-
-=cut
-
-=method total_nodes
-
-Return the list of nodes attached to the graph
-
-=cut
-
-=method get_node
-
-Return a node
-
-=cut
-
-=method add_node_attribute($name, $type, [$default_value])
-
-Add attributes to node
-
-=method all_nodes
-
-Return all the nodes
 
 =cut
 
@@ -95,9 +72,11 @@ has nodes => (
     },
 );
 
-=method add_node
+=head1 METHODS 
 
-Add a new node to the graph
+=head2 all_node
+
+Return all the nodes
 
 =cut
 
@@ -143,35 +122,68 @@ sub add_node {
     $node;
 }
 
-1;
-
 =head1 SYNOPSIS
 
-    # create a new graph
-    my $graph = Graph::GEXF->new();
+ # create a new graph
+ my $graph = Graph::GEXF->new();
 
-    # add some attributes for nodes
-    $graph->add_node_attribute('url', 'string');
+ # add some attributes for nodes
+ $graph->add_node_attribute('url', 'string');
 
-    # create a new node and set the label
-    my $n1 = $graph->add_node(0);
-    $n1->label('Gephi');
+ # create a new node and set the label
+ my $n1 = $graph->add_node(0);
+ $n1->label('Gephi');
 
-    my $n2 = $graph->add_node(1);
-    $n2->label('WebAtlas');
+ my $n2 = $graph->add_node(1);
+ $n2->label('WebAtlas');
 
-    my $n3 = $graph->add_node(2);
-    $n3->label('RTGI');
+ my $n3 = $graph->add_node(2);
+ $n3->label('RTGI');
 
-    # create relations between nodes
-    $n1->link_to(1, 2);
-    $n2->link_to(0);
-    $n3->link_to(1);
+ # create relations between nodes
+ $n1->link_to(1, 2);
+ $n2->link_to(0);
+ $n3->link_to(1);
 
-    # set the value for attributes
-    $n1->attribute('url' => 'http://gephi.org/');
-    $n2->attribute('url' => 'http://webatlas.fr/');
-    $n3->attribute('url' => 'http://rtgi.fr/');
+ # set the value for attributes
+ $n1->attribute('url' => 'http://gephi.org/');
+ $n2->attribute('url' => 'http://webatlas.fr/');
+ $n3->attribute('url' => 'http://rtgi.fr/');
 
-    # render the graph in XML
-    my $xml = $graph->to_xml;
+ # render the graph in XML
+ my $xml = $graph->to_xml;
+
+=head1 DESCRIPTION
+
+Create a graph in GEXF format....
+     
+=head1 LICENSE
+ 
+The MIT License should included with the project. If not, it can be found at: http://opensource.org/licenses/mit-license.php
+
+=head1 TESTED WITH:
+
+=over
+
+=item *
+Perl 5.14.2 (Red Hat Enterprise Linux Desktop release 6.2 (Santiago); Fedora 17)
+
+=back
+
+=head1 AUTHORS
+
+Franck Cuny (http://lumberjaph.net/), S. Evan Staton                                                
+
+=head1 MAINTAINED BY
+
+S. Evan Staton
+
+=head1 CONTACT
+ 
+statonse at gmail dot com
+
+=cut 
+
+__PACKAGE__->meta->make_immutable;
+
+1;
