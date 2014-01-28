@@ -2,12 +2,13 @@ package Graph::GEXF::Node;
 
 use Moose;
 use Graph::GEXF::Edge;
+use namespace::autoclean;
 
-with
-  'Graph::GEXF::Role::Attributes' => { for => [qw/node/] },
-  'Graph::GEXF::Role::Viz::Color', 'Graph::GEXF::Role::Viz::Position',
-  'Graph::GEXF::Role::Viz::Size'  => { as  => 'size' },
-  'Graph::GEXF::Role::Viz::Shape' => { for => 'node' };
+with 'Graph::GEXF::Role::Attributes' => { for => [qw/node/] },
+     'Graph::GEXF::Role::Viz::Color', 
+     'Graph::GEXF::Role::Viz::Position',
+     'Graph::GEXF::Role::Viz::Size'  => { as  => 'size' },
+     'Graph::GEXF::Role::Viz::Shape' => { for => 'node' };
 
 has id => (
     is       => 'ro',
@@ -72,10 +73,6 @@ sub attribute {
 
     1;
 }
-
-no Moose;
-
-1;
 
 =head1 SYNOPSIS
 
@@ -153,3 +150,8 @@ This method will create an edge between some nodes.
 
 =head3 get_edge
 
+=cut
+
+__PACKAGE__->meta->make_immutable;
+
+1;
