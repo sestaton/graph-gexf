@@ -1,7 +1,5 @@
 package Graph::GEXF;
 
-# ABSTRACT: Manipulate graph file in GEXF
-
 use Moose;
 use Data::UUID::LibUUID;
 use Moose::Util::TypeConstraints;
@@ -155,7 +153,7 @@ sub add_node {
 
 =head1 DESCRIPTION
 
-Create a graph in GEXF format....
+Create or manipulate a graph in GEXF format.
      
 =head1 LICENSE
  
